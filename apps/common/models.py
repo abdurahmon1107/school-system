@@ -125,9 +125,9 @@ class ClassRoom(BaseModel):
 
 class UserSchool(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_schools')
-    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='userschools')
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='users_chools')
 
 
 class UserPosition(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_positions')
-    position = models.ForeignKey(Position, on_delete=models.CASCADE, related_name='userpositions')
+    position = models.ForeignKey(Position, on_delete=models.CASCADE, related_name='user_positions')

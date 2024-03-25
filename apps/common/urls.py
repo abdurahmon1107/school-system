@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     # path("admin/", admin.site.urls),
-    path('login', views.LogInView.as_view())
+    path('school_list', views.SchoolListAPIView.as_view()),
 ]
