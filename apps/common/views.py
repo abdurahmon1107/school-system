@@ -31,3 +31,9 @@ class SchoolListAPIView(generics.ListAPIView):
     #             'pupil_count': pupil_count
     #         }
     #         return Response(data, status=status.HTTP_200_OK)    
+
+
+class ClassroomDeteilAPIView(generics.RetrieveAPIView):
+    serializer_class = serializers.ClassroomSerializer
+    queryset = ClassRoom.objects.all()
+    lookup_field = 'pk'

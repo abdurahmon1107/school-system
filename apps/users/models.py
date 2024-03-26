@@ -7,9 +7,9 @@ from apps.common.models import *
 
 
 PHONE_NUMBER_VALIDATOR = RegexValidator(regex=r"^\+998\d{9}$",message="Invalid phone number")
- 
- 
- 
+
+
+
 class User(AbstractUser):
     TURLAR = (
         ('Teacher', 'Teacher'),

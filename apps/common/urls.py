@@ -6,6 +6,6 @@ from . import views
 
 
 urlpatterns = [
-    # path("admin/", admin.site.urls),
-    path('school_list', views.SchoolListAPIView.as_view()),
+    path("schools_list/", views.SchoolListAPIView.as_view()),
+    path("classroom/<int:pk>", views.ClassroomDeteilAPIView.as_view()),
 ]
