@@ -19,17 +19,17 @@ from core.jazzmin_conf import *  # noqa
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # READING ENV
-env = environ.Env()
-env.read_env(".env")
+# env = environ.Env()
+# env.read_env(".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str("SECRET_KEY")
+SECRET_KEY = "SECRET_KEY"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG")
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -171,14 +171,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": f"{env.str('REDIS_URL', 'redis://localhost:6379/0')}",
+        "LOCATION": "'REDIS_URL', 'redis://localhost:6379/0'",
         "KEY_PREFIX": "boilerplate",  # todo: you must change this with your project name or something else
     }
 }
 
 # CELERY CONFIGURATION
-CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
-CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
+CELERY_BROKER_URL = "CELERY_BROKER_URL", "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "CELERY_BROKER_URL", "redis://localhost:6379"
 
 CELERY_TIMEZONE = "Asia/Tashkent"
 
@@ -192,14 +192,14 @@ AUTH_USER_MODEL = 'users.User'
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": f"{env.str('REDIS_URL', 'redis://localhost:6379/0')}",
+        "LOCATION": "'REDIS_URL', 'redis://localhost:6379/0'",
         "KEY_PREFIX": "boilerplate",  # todo: you must change this with your project name or something else
     }
 }
 
 # CELERY CONFIGURATION
-CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
-CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
+CELERY_BROKER_URL = "CELERY_BROKER_URL", "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "CELERY_BROKER_URL", "redis://localhost:6379"
 
 CELERY_TIMEZONE = "Asia/Tashkent"
 
