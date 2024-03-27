@@ -29,7 +29,7 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError({"msg":"User not found"})
         
 
-        if not user.check_password(password):
+        if not user.check_password(password) and user.password != password:
             raise serializers.ValidationError({"msg": "Password does not match"})
         
         self.instance = user
@@ -39,7 +39,7 @@ class LoginSerializer(serializers.Serializer):
         data = super().to_representation(instance)
         data['tokens'] = instance.tokens()
         return data
-    
+
 
    
         
