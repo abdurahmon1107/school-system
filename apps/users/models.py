@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from rest_framework_simplejwt.tokens import RefreshToken
 from apps.common.models import *
+from django.contrib.auth.hashers import make_password
 
 
 PHONE_NUMBER_VALIDATOR = RegexValidator(regex=r"^\+998\d{9}$",message="Invalid phone number")
@@ -30,6 +31,12 @@ class User(AbstractUser):
 
     def __str__(self) -> str:
         return self.type
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # If the user is being created, hash the password
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
 
     def tokens(self):
         refresh = RefreshToken.for_user(self)
