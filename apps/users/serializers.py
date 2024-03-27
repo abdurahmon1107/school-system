@@ -15,19 +15,19 @@ class LoginSerializer(serializers.Serializer):
     type = serializers.ChoiceField(choices=TURLAR)
 
     def validate(self, attrs):
-        username = attrs.get('username')
-        password = attrs.get('password')
-        type = attrs.get('type')
+        username = attrs['username']
+        password = attrs['password']
+        type = attrs['type']
 
-        if type == 'Admin':
-            user = User.objects.filter(username=username).first()
-        else:
-            raise serializers.ValidationError({'msg': 'Invalid type'})
-        
-
-        
+        user = User.objects.filter(username=username).first()
+        print(attrs)
+        print(user)
         if not user:
             raise serializers.ValidationError({"msg": "User does not exist!"})
+
+        if not type == user.type:
+            raise serializers.ValidationError({"msg":"User not found"})
+        
 
         if not user.check_password(password):
             raise serializers.ValidationError({"msg": "Password does not match"})
