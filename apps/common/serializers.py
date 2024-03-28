@@ -9,7 +9,7 @@ class SchoolSerializer(serializers.ModelSerializer):
 
     teacher_count = serializers.SerializerMethodField()
     pupils_count = serializers.SerializerMethodField()
-
+    director = serializers.CharField(source='director.first_name')
 
     class Meta:
         model = School
@@ -36,3 +36,11 @@ class ClassroomSerializer(serializers.ModelSerializer):
 
     def get_teacher(self, obj):
         return obj.group.teacher.username if obj.group and obj.group.teacher else None
+
+class ClassRoomListSerializer(serializers.ModelSerializer):
+    school = serializers.CharField(source='school.school_name')
+    group = serializers.CharField(source='group.group_name')
+    class Meta:
+        model = ClassRoom
+        fields = ('id', 'class_name', 'school', 'capacity', 'group')
+    

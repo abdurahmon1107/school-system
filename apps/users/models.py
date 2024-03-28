@@ -30,14 +30,8 @@ class User(AbstractUser):
     birthday = models.DateField(null=True)
 
     def __str__(self) -> str:
-        return self.type
+        return f" {self.type} - {self.username}"
     
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            # If the user is being created, hash the password
-            self.password = make_password(self.password)
-        super().save(*args, **kwargs)
-
     def tokens(self):
         refresh = RefreshToken.for_user(self)
 
