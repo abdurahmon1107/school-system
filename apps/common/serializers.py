@@ -43,4 +43,20 @@ class ClassRoomListSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassRoom
         fields = ('id', 'class_name', 'school', 'capacity', 'group')
-    
+
+class AttendanceSerializer(serializers.ModelSerializer):
+    group = serializers.CharField(source='group.group_name',read_only=True)
+    class Meta:
+        model = Pupil
+        fields = ('id', 'updated_at','group', 'full_name', 'attendance_status')
+class GroupPupilsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pupil
+        fields = ( 'id','full_name' )
+
+# class StatisticSerializers(serializers.ModelSerializer):
+#     pupils_count = Pupil.objects.count()
+#     print(pupils_count)
+#     class Meta:
+#         model = Pupil
+#         fields = ( 'pupils_count', )

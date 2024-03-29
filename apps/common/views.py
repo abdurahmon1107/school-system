@@ -23,3 +23,35 @@ class ClassroomDeteilAPIView(generics.RetrieveAPIView):
 class ClassRoomListAPIView(generics.ListAPIView):
     serializer_class = serializers.ClassRoomListSerializer
     queryset = ClassRoom.objects.all()
+
+
+class AttendanceRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Pupil.objects.all()
+    serializer_class = serializers.AttendanceSerializer
+      # Agar o'quvchini guruh nomi orqali qidirishni istasangiz
+
+    def put(self, request, *args, **kwargs):
+        print(request.data)
+        return self.update(request, *args, **kwargs)
+
+    
+class GroupPupilListAPIView(generics.ListAPIView):
+    serializer_class = serializers.GroupPupilsSerializer
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        return Pupil.objects.filter(group__id=pk)
+    
+class StatisticAPIView(views.APIView):
+    def get(self, request):
+        pupils_count = Pupil.objects.count()
+        school_count = School.objects.count()
+        teachers_count = User.objects.filter(type='Teacher').count()
+        absent_count = Pupil.objects.filter(attendance_status=KELMADI).count()
+        data = {
+            'pupils_count':pupils_count,
+            'teachers_count':teachers_count,
+            'school_count':school_count,
+            'absent_count':absent_count,
+        }
+        return Response(data, status=status.HTTP_200_OK)
+   

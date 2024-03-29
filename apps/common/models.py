@@ -5,7 +5,7 @@ from apps.users.models import User
 
 PHONE_NUMBER_VALIDATOR = RegexValidator(regex=r"^\+998\d{9}$",message="Invalid phone number")
  
-
+KELDI , KELMADI = "Keldi" , 'Kelmadi'
 
 
 class BaseModel(models.Model):
@@ -46,6 +46,10 @@ class School(BaseModel):
 
 
 class Pupil(BaseModel):
+    DAVOMAT = (
+       ( KELDI , "Keldi"),
+        ( KELMADI , "Kelmadi")
+    ) 
     full_name = models.CharField(max_length=250,verbose_name='Full name')
     school = models.ForeignKey(School,
                                on_delete=models.PROTECT,
@@ -64,10 +68,14 @@ class Pupil(BaseModel):
     parent_number = models.CharField(max_length=13,
                                      validators=[PHONE_NUMBER_VALIDATOR],
                                      verbose_name='Parent phone number')
+    attendance_status = models.CharField(max_length=7,
+                            choices = DAVOMAT,
+                            default = KELDI,
+                            verbose_name = 'Davomat')
 
     
     def __str__(self):
-        return self.full_name
+        return f"{self.full_name}-{self.id}"
     
 
 class Group(BaseModel):
