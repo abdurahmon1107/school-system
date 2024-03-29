@@ -37,3 +37,8 @@ class ClassroomDeteilAPIView(generics.RetrieveAPIView):
     serializer_class = serializers.ClassroomSerializer
     queryset = ClassRoom.objects.all()
     lookup_field = 'pk'
+
+class ClassRoomListAPIView(generics.ListAPIView):
+    serializer_class = serializers.ClassroomSerializer
+    queryset = ClassRoom.objects.all()
+    

@@ -64,7 +64,7 @@ class Pupil(BaseModel):
     parent_number = models.CharField(max_length=13,
                                      validators=[PHONE_NUMBER_VALIDATOR],
                                      verbose_name='Parent phone number')
-    
+
     
     def __str__(self):
         return self.full_name

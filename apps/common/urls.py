@@ -8,4 +8,5 @@ from . import views
 urlpatterns = [
     path("schools_list/", views.SchoolListAPIView.as_view()),
     path("classroom/<int:pk>", views.ClassroomDeteilAPIView.as_view()),
+    path("classroom-list/", views.ClassRoomListAPIView.as_view()),
 ]

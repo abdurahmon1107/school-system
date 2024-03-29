@@ -36,3 +36,9 @@ class ClassroomSerializer(serializers.ModelSerializer):
 
     def get_teacher(self, obj):
         return obj.group.teacher.username if obj.group and obj.group.teacher else None
+    
+
+class ClassRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClassRoom
+        fields = ('id', 'class_name', 'school', 'capacity', 'group', 'teacher')
