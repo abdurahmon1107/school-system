@@ -12,6 +12,7 @@ from rest_framework import filters
 class SchoolListAPIView(generics.ListAPIView):
     serializer_class = serializers.SchoolSerializer
     queryset = School.objects.all()
+    permission_classes = [IsAuthenticated]
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['school_name']
@@ -27,7 +28,7 @@ class ClassroomDeteilAPIView(generics.RetrieveAPIView):
 class ClassRoomListAPIView(generics.ListAPIView):
     serializer_class = serializers.ClassRoomListSerializer
     queryset = ClassRoom.objects.all()
-    authentication_classes = [JWTAuthentication]
+    # authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['class_name']
