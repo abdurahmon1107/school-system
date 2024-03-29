@@ -40,7 +40,8 @@ class ClassroomSerializer(serializers.ModelSerializer):
 class ClassRoomListSerializer(serializers.ModelSerializer):
     school = serializers.CharField(source='school.school_name')
     group = serializers.CharField(source='group.group_name')
+    teacher = serializers.CharField(source='group.teacher.first_name')
     class Meta:
         model = ClassRoom
-        fields = ('id', 'class_name', 'school', 'capacity', 'group')
+        fields = ('id', 'class_name', 'school', 'capacity', 'group', 'teacher')
     
