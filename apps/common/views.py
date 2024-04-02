@@ -9,6 +9,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
+
+
+# maktablar royxati api
 class SchoolListAPIView(generics.ListAPIView):
     serializer_class = serializers.SchoolSerializer
     queryset = School.objects.all()
@@ -18,12 +21,17 @@ class SchoolListAPIView(generics.ListAPIView):
   
 
 
+
+# sinf xona malumotlari
 class ClassroomDeteilAPIView(generics.RetrieveAPIView):
     serializer_class = serializers.ClassroomSerializer
     queryset = ClassRoom.objects.all()
     lookup_field = 'pk'
 
 
+
+
+#sinf xona listi
 class ClassRoomListAPIView(generics.ListAPIView):
     serializer_class = serializers.ClassRoomListSerializer
     queryset = ClassRoom.objects.all()
@@ -34,6 +42,9 @@ class ClassRoomListAPIView(generics.ListAPIView):
 
 
 
+
+
+# oquvchi davomati keldi-kelmadi
 class AttendanceRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     queryset = Pupil.objects.all()
     serializer_class = serializers.AttendanceSerializer
@@ -43,13 +54,19 @@ class AttendanceRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
         print(request.data)
         return self.update(request, *args, **kwargs)
 
-    
+
+
+
+# sinfni oquvchilari royxati    
 class GroupPupilListAPIView(generics.ListAPIView):
     serializer_class = serializers.GroupPupilsSerializer
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         return Pupil.objects.filter(group__id=pk)
-    
+
+
+
+# dashboard statistikasi
 class StatisticAPIView(views.APIView):
     def get(self, request):
         pupils_count = Pupil.objects.count()
@@ -63,4 +80,22 @@ class StatisticAPIView(views.APIView):
             'absent_count':absent_count,
         }
         return Response(data, status=status.HTTP_200_OK)
-   
+
+
+# maktab sinfxonalari royxati
+    # ----------------------------------------------------------------------------
+class SchoolDetailsAPIView(generics.ListAPIView):
+    serializer_class = serializers.SchoolDetailsSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        return ClassRoom.objects.filter(school__id=pk)
+
+
+
+
+# maktab qoshish
+class AddSchoolAPIView(generics.CreateAPIView):
+    queryset = School.objects.all()
+    serializer_class = serializers.AddSchoolSerializer
+    

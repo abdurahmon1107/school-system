@@ -12,4 +12,6 @@ urlpatterns = [
     path("attendance-page/<int:pk>/", views.AttendanceRetrieveUpdateAPIView.as_view()),
     path("group-pupil-list/<int:pk>/", views.GroupPupilListAPIView.as_view()),
     path('dashboard/', views.StatisticAPIView.as_view()),
+    path('add-school/', views.AddSchoolAPIView.as_view()),
+    path('school-details/<int:pk>/', views.SchoolDetailsAPIView.as_view()),
 ]

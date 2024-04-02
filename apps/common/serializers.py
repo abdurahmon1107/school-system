@@ -3,7 +3,7 @@ from django.utils import timezone
 from apps.users.models import *
 from apps.common.models import *
  
-
+# --------------------------------------------------------------
 
 class SchoolSerializer(serializers.ModelSerializer):
 
@@ -22,7 +22,7 @@ class SchoolSerializer(serializers.ModelSerializer):
     def get_pupils_count(self, obj):
         return User.objects.filter(type='Pupil', school_director=obj).count()
 
-
+# -----------------------------------------------------------------------------
 class ClassroomSerializer(serializers.ModelSerializer):
 
     teacher = serializers.SerializerMethodField()
@@ -36,7 +36,7 @@ class ClassroomSerializer(serializers.ModelSerializer):
 
     def get_teacher(self, obj):
         return obj.group.teacher.username if obj.group and obj.group.teacher else None
-
+# ---------------------------------------------------------------------------------------------
 class ClassRoomListSerializer(serializers.ModelSerializer):
     school = serializers.CharField(source='school.school_name')
     group = serializers.CharField(source='group.group_name')
@@ -45,20 +45,52 @@ class ClassRoomListSerializer(serializers.ModelSerializer):
         model = ClassRoom
         fields = ('id', 'class_name', 'school', 'capacity', 'group', 'teacher')
     
-
+# ----------------------------------------------------------------------------------------------
 class AttendanceSerializer(serializers.ModelSerializer):
     group = serializers.CharField(source='group.group_name',read_only=True)
     class Meta:
         model = Pupil
         fields = ('id', 'updated_at','group', 'full_name', 'attendance_status')
+
+# --------------------------------------------------------------------------------------------------
+
+
+
+
 class GroupPupilsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pupil
         fields = ( 'id','full_name' )
 
-# class StatisticSerializers(serializers.ModelSerializer):
-#     pupils_count = Pupil.objects.count()
-#     print(pupils_count)
-#     class Meta:
-#         model = Pupil
-#         fields = ( 'pupils_count', )
+
+
+# -------------------------------------------------------------------------------------------------
+# maktab qoshish uchun
+class AddSchoolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = School
+        fields = ('school_name', 'director', 'adress')
+
+
+# ------------------------------------------------------------------------------------------------
+
+
+
+#maktabga sinf xona qoshish uchun
+class AddClasroomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClassRoom
+        fields = ('class_name', 'school', 'capacity', 'group')
+
+# --------------------------------------------------------------------------------------------------------
+        
+class SchoolDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClassRoom
+        fields = ('id','class_name', 'group')
+
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['group'] = instance.group.group_name
+        return data
