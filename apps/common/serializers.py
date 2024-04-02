@@ -83,7 +83,7 @@ class AddClasroomSerializer(serializers.ModelSerializer):
         fields = ('class_name', 'school', 'capacity', 'group')
 
 # --------------------------------------------------------------------------------------------------------
-        
+# maktabni sinf xonalari royxati    
 class SchoolDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassRoom
