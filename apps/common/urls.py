@@ -14,4 +14,5 @@ urlpatterns = [
     path('dashboard/', views.StatisticAPIView.as_view()),
     path('add-school/', views.AddSchoolAPIView.as_view()),
     path('school-details/<int:pk>/', views.SchoolDetailsAPIView.as_view()),
+    path('add-classroom/', views.AddClassRoomAPIView.as_view()),
 ]

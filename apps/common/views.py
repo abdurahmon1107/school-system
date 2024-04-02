@@ -99,4 +99,11 @@ class SchoolDetailsAPIView(generics.ListAPIView):
 class AddSchoolAPIView(generics.CreateAPIView):
     queryset = School.objects.all()
     serializer_class = serializers.AddSchoolSerializer
+
+
+# maktabga sinf xona qoshish
+
+class AddClassRoomAPIView(generics.CreateAPIView):
+    queryset = ClassRoom.objects.all()
+    serializer_class = serializers.AddClasroomSerializer
     
