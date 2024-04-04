@@ -94,3 +94,9 @@ class SchoolDetailsSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         data['group'] = instance.group.group_name
         return data
+    
+
+class SchoolAbuotSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = School
+        exclude = ['created_at', 'updated_at']

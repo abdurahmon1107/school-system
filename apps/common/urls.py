@@ -15,4 +15,5 @@ urlpatterns = [
     path('add-school/', views.AddSchoolAPIView.as_view()),
     path('school-details/<int:pk>/', views.SchoolDetailsAPIView.as_view()),
     path('add-classroom/', views.AddClassRoomAPIView.as_view()),
+    path('school-about/<int:pk>/', views.SchoolAboutAPIView.as_view()),
 ]

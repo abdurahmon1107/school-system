@@ -30,7 +30,7 @@ class User(AbstractUser):
     birthday = models.DateField(null=True)
 
     def __str__(self) -> str:
-        return f" {self.type} - {self.username}"
+        return f" {self.type} - {self.username} - {self.id}"
     
     def tokens(self):
         refresh = RefreshToken.for_user(self)

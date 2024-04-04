@@ -3,19 +3,19 @@ from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework import generics,views
 from . import serializers
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import *
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-
+from .permissions import *
 
 
 # maktablar royxati api
 class SchoolListAPIView(generics.ListAPIView):
     serializer_class = serializers.SchoolSerializer
     queryset = School.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsDerector, IsTeacher]
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['school_name']
@@ -69,6 +69,7 @@ class GroupPupilListAPIView(generics.ListAPIView):
 
 # dashboard statistikasi
 class StatisticAPIView(views.APIView):
+    permission_classes = [IsAuthenticated, IsDerector, IsTeacher]
     def get(self, request):
         pupils_count = Pupil.objects.count()
         school_count = School.objects.count()
@@ -87,10 +88,11 @@ class StatisticAPIView(views.APIView):
     # ----------------------------------------------------------------------------
 class SchoolDetailsAPIView(generics.ListAPIView):
     serializer_class = serializers.SchoolDetailsSerializer
-
+    permission_classes = [IsAuthenticated, IsTeacher, IsSchoolDetail]
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         return ClassRoom.objects.filter(school__id=pk)
+
 
 
 
@@ -106,4 +108,11 @@ class AddSchoolAPIView(generics.CreateAPIView):
 class AddClassRoomAPIView(generics.CreateAPIView):
     queryset = ClassRoom.objects.all()
     serializer_class = serializers.AddClasroomSerializer
+
+# 1 ta maktabni hamma malumotlari 
+
+class SchoolAboutAPIView(generics.RetrieveAPIView):
+    queryset = School.objects.all()
+    serializer_class = serializers.SchoolAbuotSerializers
+    permission_classes = [IsAuthenticated,IsTeacher, IsSchoolDerector]
     

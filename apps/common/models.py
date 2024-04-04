@@ -40,7 +40,7 @@ class School(BaseModel):
 
 
     def __str__(self) -> str:
-        return self.school_name
+        return f"{self.school_name} - {self.id}"
     
 
 
