@@ -39,5 +39,9 @@ class User(AbstractUser):
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }
-
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # If the user is being created, hash the password
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
  
