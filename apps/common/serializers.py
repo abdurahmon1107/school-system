@@ -26,6 +26,8 @@ class SchoolSerializer(serializers.ModelSerializer):
 class ClassroomSerializer(serializers.ModelSerializer):
 
     teacher = serializers.SerializerMethodField()
+    group = serializers.CharField(source='group.group_name')
+    school = serializers.CharField(source='school.school_name')
 
 
     class Meta:
@@ -100,3 +102,5 @@ class SchoolAbuotSerializers(serializers.ModelSerializer):
     class Meta:
         model = School
         exclude = ['created_at', 'updated_at']
+
+

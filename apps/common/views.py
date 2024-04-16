@@ -32,6 +32,9 @@ class ClassroomDeteilAPIView(generics.RetrieveAPIView):
 
 
 
+
+
+
 #sinf xona listi
 class ClassRoomListAPIView(generics.ListAPIView):
     serializer_class = serializers.ClassRoomListSerializer
@@ -115,4 +118,13 @@ class SchoolAboutAPIView(generics.RetrieveAPIView):
     queryset = School.objects.all()
     serializer_class = serializers.SchoolAbuotSerializers
     permission_classes = [IsAuthenticated,IsTeacher, IsSchoolDerector]
-    
+
+
+class DeleteSchoolView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = School.objects.all()
+    serializer_class = serializers.SchoolAbuotSerializers
+
+
+class DeleteClassRoom(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ClassRoom.objects.all()
+    serializer_class = serializers.ClassroomSerializer
