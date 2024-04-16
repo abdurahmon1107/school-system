@@ -21,6 +21,8 @@ class SchoolSerializer(serializers.ModelSerializer):
 
     def get_pupils_count(self, obj):
         return User.objects.filter(type='Pupil', school_director=obj).count()
+   
+    
 
 # -----------------------------------------------------------------------------
 class ClassroomSerializer(serializers.ModelSerializer):
@@ -72,6 +74,11 @@ class AddSchoolSerializer(serializers.ModelSerializer):
     class Meta:
         model = School
         fields = ('school_name', 'director', 'adress')
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        print(11111111)
+        data['director'] = instance.director.username
+        return data
 
 
 # ------------------------------------------------------------------------------------------------
@@ -83,6 +90,12 @@ class AddClasroomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassRoom
         fields = ('class_name', 'school', 'capacity', 'group')
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        print(instance)
+        data['school'] = instance.school.school_name
+        data['group'] = instance.group.group_name
+        return data
 
 # --------------------------------------------------------------------------------------------------------
 # maktabni sinf xonalari royxati    
