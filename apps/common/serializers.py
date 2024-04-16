@@ -117,3 +117,8 @@ class SchoolAbuotSerializers(serializers.ModelSerializer):
         exclude = ['created_at', 'updated_at']
 
 
+
+class DeleteClassRoom(serializers.ModelSerializer):
+    class Meta:
+        model = ClassRoom
+        exclude = ['created_at', 'updated_at']

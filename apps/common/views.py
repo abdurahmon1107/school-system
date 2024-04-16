@@ -127,4 +127,4 @@ class DeleteSchoolView(generics.RetrieveUpdateDestroyAPIView):
 
 class DeleteClassRoom(generics.RetrieveUpdateDestroyAPIView):
     queryset = ClassRoom.objects.all()
-    serializer_class = serializers.ClassroomSerializer
+    serializer_class = serializers.DeleteClassRoom
