@@ -110,6 +110,21 @@ class SchoolDetailsSerializer(serializers.ModelSerializer):
     
 
 class SchoolAbuotSerializers(serializers.ModelSerializer):
+    teacher_count = serializers.SerializerMethodField()
+    pupils_count = serializers.SerializerMethodField()
     class Meta:
         model = School
-        exclude = ['created_at', 'updated_at']
+        fields = ('id','school_name', 'director', 'adress', 'teacher_count', 'pupils_count')
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['director'] = instance.director.first_name
+        return data
+    def get_teacher_count(self, obj):
+        return User.objects.filter(type='Teacher', school_director=obj).count() or 0
+        
+            
+
+
+    def get_pupils_count(self, obj):
+        print(obj)
+        return Pupil.objects.filter(school = obj).count() or 0

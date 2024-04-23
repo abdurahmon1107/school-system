@@ -9,7 +9,7 @@ class IsTeacher(BasePermission):
 class IsDerector(BasePermission):
     def has_permission(self, request, view):
         print(request.user.type)
-        return not request.user.type == "Director"
+        return not request.user.type == "Director" 
 
 class IsSchoolDerector(BasePermission):
     def has_object_permission(self, request, view, obj):
