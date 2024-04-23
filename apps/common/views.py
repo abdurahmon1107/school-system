@@ -33,8 +33,6 @@ class ClassroomDeteilAPIView(generics.RetrieveAPIView):
 
 
 
-
-
 #sinf xona listi
 class ClassRoomListAPIView(generics.ListAPIView):
     serializer_class = serializers.ClassRoomListSerializer

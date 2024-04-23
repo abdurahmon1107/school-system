@@ -130,3 +130,9 @@ class SchoolAbuotSerializers(serializers.ModelSerializer):
     def get_pupils_count(self, obj):
         print(obj)
         return Pupil.objects.filter(school = obj).count() or 0
+
+
+class DeleteClassRoom(serializers.ModelSerializer):
+    class Meta:
+        model = ClassRoom
+        exclude = ['created_at', 'updated_at']
