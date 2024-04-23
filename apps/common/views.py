@@ -18,8 +18,8 @@ class SchoolListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticated, IsDerector, IsTeacher]
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["region"]
     search_fields = ['school_name']
-    filterset_fields = ['region']
   
 
 
