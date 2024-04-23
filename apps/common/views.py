@@ -19,6 +19,7 @@ class SchoolListAPIView(generics.ListAPIView):
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['school_name']
+    filterset_fields = ['region']
   
 
 

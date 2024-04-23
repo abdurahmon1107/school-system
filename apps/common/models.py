@@ -7,6 +7,19 @@ PHONE_NUMBER_VALIDATOR = RegexValidator(regex=r"^\+998\d{9}$",message="Invalid p
  
 KELDI , KELMADI = "Keldi" , 'Kelmadi'
 
+TOSHKENT = "Toshkent"
+ANDIJON = "Andijon"
+SAMARQAND = "Samaarqand"
+BUXORO = "Buxoro"
+NAVOIY = "Navoiy"
+QORAQALPOGISTON = "Qorajalpogiston"
+QASHQADARYO = "Qashqadaryo"
+XORAZM = "Xorazm"
+SURHANDARYO = "Surhandaryo"
+SIRDARYO = "Sirdaryo"
+NAMANGAN = "Namangan"
+TOSHKENT_SHAHAR = "Toshkent_shahar"
+
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -28,6 +41,20 @@ class Position(BaseModel):
         return self.subject_name
     
 class School(BaseModel):
+    REGION_CHOICE = (
+        ( TOSHKENT , "Toshkent"),
+        ( ANDIJON , "Andijon"),
+        ( SAMARQAND, 'Samarqand'),
+        ( BUXORO, "Buxoro"),
+        ( NAVOIY, "Navoiy"),
+        ( QORAQALPOGISTON, 'Qoraqalpogiston'),
+        ( QASHQADARYO, 'Qashqadaryo'),
+        ( XORAZM, "Xorazm"),
+        ( SURHANDARYO, "Surhandaryo"),
+        ( SIRDARYO, "Sirdaryo"),
+        ( NAMANGAN, "Namangan"),
+        ( TOSHKENT_SHAHAR, "Toshkent_shahar"),
+    )
     school_name = models.CharField(max_length=250)
     director = models.ForeignKey('users.User',
                                     on_delete=models.CASCADE,
@@ -37,7 +64,8 @@ class School(BaseModel):
 
 
     adress = models.CharField(max_length=300)
-
+    region = models.CharField(max_length=100, choices=REGION_CHOICE, default=TOSHKENT_SHAHAR, null=True, blank=True)
+    street = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.school_name} - {self.id}"
