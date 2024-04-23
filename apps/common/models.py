@@ -30,7 +30,7 @@ class Position(BaseModel):
 class School(BaseModel):
     school_name = models.CharField(max_length=250)
     director = models.ForeignKey('users.User',
-                                    on_delete=models.PROTECT,
+                                    on_delete=models.CASCADE,
                                     verbose_name='Director',
                                     related_name='school_director',
                                 )
@@ -52,7 +52,7 @@ class Pupil(BaseModel):
     ) 
     full_name = models.CharField(max_length=250,verbose_name='Full name')
     school = models.ForeignKey(School,
-                               on_delete=models.PROTECT,
+                               on_delete=models.CASCADE,
                                related_name='pupils',
                                verbose_name='School')
     group = models.ForeignKey('Group',
@@ -93,7 +93,7 @@ class Group(BaseModel):
 class ClassRoom(BaseModel):
     class_name = models.CharField(max_length=250)
     school = models.ForeignKey(School,
-                               on_delete=models.PROTECT,
+                               on_delete=models.CASCADE,
                                related_name='class_rooms',
                                verbose_name='School')
     capacity = models.PositiveIntegerField(default = 0)
@@ -103,7 +103,7 @@ class ClassRoom(BaseModel):
                               verbose_name='Group')
     
     def __str__(self) -> str:
-        return self.class_name
+        return f"{self.class_name} - {self.id}"
     
 
 

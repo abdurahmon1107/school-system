@@ -28,6 +28,8 @@ class SchoolSerializer(serializers.ModelSerializer):
 class ClassroomSerializer(serializers.ModelSerializer):
 
     teacher = serializers.SerializerMethodField()
+    group = serializers.CharField(source='group.group_name')
+    school = serializers.CharField(source='school.school_name')
 
 
     class Meta:
