@@ -42,12 +42,12 @@ class ClassroomSerializer(serializers.ModelSerializer):
         return obj.group.teacher.username if obj.group and obj.group.teacher else None
 # ---------------------------------------------------------------------------------------------
 class ClassRoomListSerializer(serializers.ModelSerializer):
-    school = serializers.CharField(source='school.school_name')
-    group = serializers.CharField(source='group.group_name')
+    school_name = serializers.CharField(source='school.school_name')
+    group_name = serializers.CharField(source='group.group_name')
     teacher = serializers.CharField(source='group.teacher.first_name')
     class Meta:
         model = ClassRoom
-        fields = ('id', 'class_name', 'school', 'capacity', 'group', 'teacher')
+        fields = ('id', 'class_name', 'school', 'capacity', 'group', 'teacher', 'school_name', 'group_name')
     
 # ----------------------------------------------------------------------------------------------
 class AttendanceSerializer(serializers.ModelSerializer):
